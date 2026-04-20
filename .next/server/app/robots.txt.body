@@ -1,6 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /admin
-Disallow: /private/
-
-Sitemap: https://aqsatech.ae/sitemap.xml

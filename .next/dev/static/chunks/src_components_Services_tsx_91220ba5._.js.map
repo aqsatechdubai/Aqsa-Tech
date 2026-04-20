@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/faisa/Downloads/Aqsa-tech/Aqsa-tech/src/components/Services.tsx"],"sourcesContent":["\"use client\";\nexport default function Services() {\n  return null;\n}\n"],"names":[],"mappings":";;;;AAAA;AACe,SAAS;IACtB,OAAO;AACT;KAFwB"}}]
-}

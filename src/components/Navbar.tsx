@@ -566,7 +566,7 @@ const Navbar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Mobile Dropdown Menu (Floating Card) */}
+      {/* Mobile & Desktop Dropdown Menu (Floating Card) */}
       <AnimatePresence>
         {isSideMenuOpen && (
           <motion.div
@@ -574,7 +574,7 @@ const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: -10, scale: 0.95, filter: 'blur(10px)' }}
             transition={{ type: "spring", bounce: 0.35, duration: 0.6 }}
-            className="absolute top-full left-3 right-3 mt-2 lg:hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] rounded-[28px]"
+            className="absolute top-full left-3 right-3 mt-2 lg:left-auto lg:w-[380px] xl:w-[420px] origin-top lg:origin-top-right shadow-[0_20px_60px_rgba(0,0,0,0.15)] rounded-[28px]"
             style={{ zIndex: 100 }}
           >
             <div className="w-full bg-white/95 backdrop-blur-[40px] border border-gray-200/80 rounded-[28px] p-2 flex flex-col">
@@ -586,16 +586,18 @@ const Navbar: React.FC = () => {
                   { id: 'blog', label: navBlog, path: '/blog', isActive: isBlogActive },
                   { id: 'contact', label: navContact, path: '/#contact', isActive: isContactActive },
                 ].map((item, index) => (
-                  <motion.button
+                  <motion.a
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + (index * 0.05), type: "spring", stiffness: 300, damping: 24 }}
                     key={item.id}
-                    onClick={() => {
+                    onClick={(e: React.MouseEvent) => {
+                      e.preventDefault();
                       handleNavClick(item.path);
                       setIsSideMenuOpen(false);
                     }}
-                    className={`relative text-left py-3.5 px-4 font-bold text-[16px] rounded-xl transition-all w-full flex items-center justify-between group active:scale-[0.98] overflow-hidden ${
+                    href={item.path}
+                    className={`relative text-left py-3.5 px-4 font-bold text-[16px] rounded-xl transition-all !w-full !flex items-center justify-between group active:scale-[0.98] overflow-hidden cursor-pointer ${
                       item.isActive 
                         ? 'bg-[#F0F9FF] text-[#0ea5e9]' 
                         : 'text-gray-800 hover:bg-[#F0F9FF] hover:text-[#0ea5e9]'
@@ -608,9 +610,9 @@ const Navbar: React.FC = () => {
                         className="absolute left-0 top-0 bottom-0 w-[5px] bg-[#0ea5e9] rounded-r-md"
                       />
                     )}
-                    <span className="relative z-10 pl-1">{item.label}</span>
-                    <span className={`relative z-10 transition-opacity text-sm text-[#0ea5e9] ${item.isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>→</span>
-                  </motion.button>
+                    <span className="relative z-10 pl-1 flex-1">{item.label}</span>
+                    <span className={`relative z-10 transition-opacity text-sm text-[#0ea5e9] shrink-0 ${item.isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>→</span>
+                  </motion.a>
                 ))}
               </div>
 
@@ -621,22 +623,22 @@ const Navbar: React.FC = () => {
                 transition={{ delay: 0.35, type: "spring", stiffness: 300, damping: 24 }}
                 className="mt-1 text-center pb-2 px-2"
               >
-                <motion.button
+                <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => {
                     handleNavClick('/#contact');
                     setIsSideMenuOpen(false);
                   }}
-                  className="w-full bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white py-4 rounded-[20px] text-[16px] font-bold flex items-center justify-center gap-3 shadow-[0_4px_14px_rgba(14,165,233,0.3)] transition-all"
+                  className="!w-full bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white py-4 rounded-[20px] text-[16px] font-bold !flex items-center justify-center gap-3 shadow-[0_4px_14px_rgba(14,165,233,0.3)] transition-all cursor-pointer"
                 >
                   Get Free Quote
-                  <div className="w-6 h-6 bg-white text-[#0ea5e9] rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 bg-white text-[#0ea5e9] rounded-full flex items-center justify-center shrink-0">
                     <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                </motion.button>
+                </motion.div>
               </motion.div>
 
               {/* Bottom Tags Section */}

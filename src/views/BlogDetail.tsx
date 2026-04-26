@@ -38,20 +38,6 @@ export default function BlogDetail() {
       .slice(0, 3);
   }, [slug, post, translatedPosts]);
 
-  if (!post) {
-    return (
-      <div className="min-h-screen bg-soft-gray-light pt-20 sm:pt-24 flex items-center justify-center">
-        <div className="text-center px-4">
-          <h1 className={`text-4xl font-bold text-gray-900 mb-4 ${isRTL ? 'text-right' : 'text-left'}`}>{t('common.articleNotFound')}</h1>
-          <p className={`text-gray-900 mb-8 font-medium ${isRTL ? 'text-right' : 'text-left'}`}>{t('common.articleNotFoundDescription')}</p>
-          <ProButton onClick={() => navigate('/blog')} variant="primary">
-            {t('common.back')}
-          </ProButton>
-        </div>
-      </div>
-    );
-  }
-
   const handleShare = useCallback(async () => {
     if (navigator.share) {
       try {
@@ -60,7 +46,7 @@ export default function BlogDetail() {
           text: post?.excerpt || '',
           url: window.location.href,
         });
-      } catch (err) {
+      } catch {
         // Share cancelled by user
       }
     } else {
@@ -155,13 +141,13 @@ export default function BlogDetail() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-center sm:text-left"
+              className={`text-center sm:text-left flex flex-col items-center sm:items-start gap-3`}
             >
-              <span className="inline-block bg-brand-teal text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+              <div className="inline-block bg-white/20 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-sm font-semibold border border-white/30 shadow-md">
                 {post.category}
-              </span>
+              </div>
               
-              <h1 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight ${isRTL ? 'sm:text-right' : ''}`}>
+              <h1 className={`text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white !leading-[1.1] sm:!leading-[1.15] m-0 p-0 tracking-tight drop-shadow-lg max-w-3xl ${isRTL ? 'text-right' : 'text-left'}`}>
                 {post.title}
               </h1>
               

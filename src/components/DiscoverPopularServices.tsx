@@ -7,7 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 ;
 import { useTranslatedServices } from '../hooks/useTranslatedServices';
 import ProButton from './ui/ProButton';
-import { gpuAccelerate, optimizeImage } from '../utils/performance144';
+import { gpuAccelerate, optimizeImage } from '../utils/performance';
 
 interface Service {
   id: number;

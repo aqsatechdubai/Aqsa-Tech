@@ -1,18 +1,26 @@
 // Performance monitoring and optimization utilities
 
 /**
- * Throttle function to limit function execution frequency
+ * Throttle function to limit function execution frequency (144Hz optimized)
  */
 export function throttle<T extends (...args: any[]) => any>(
   func: T,
-  limit: number
+  limit: number = 7 // ~144fps default
 ): (...args: Parameters<T>) => void {
-  let inThrottle: boolean;
+  let lastCall = 0;
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
   return function (this: any, ...args: Parameters<T>) {
-    if (!inThrottle) {
+    const now = performance.now();
+    const timeSinceLastCall = now - lastCall;
+    if (timeSinceLastCall >= limit) {
+      lastCall = now;
       func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
+    } else {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        lastCall = performance.now();
+        func.apply(this, args);
+      }, limit - timeSinceLastCall);
     }
   };
 }
@@ -33,6 +41,35 @@ export function debounce<T extends (...args: any[]) => any>(
 }
 
 /**
+ * RequestAnimationFrame wrapper optimized for 144Hz
+ */
+export function raf144Hz(callback: () => void): number {
+  return requestAnimationFrame(() => {
+    requestAnimationFrame(callback); // Double RAF for smoother updates
+  });
+}
+
+/**
+ * GPU-accelerated transform helper
+ */
+export function gpuAccelerate(element: HTMLElement | null): void {
+  if (!element) return;
+  element.style.transform = 'translateZ(0)';
+  element.style.backfaceVisibility = 'hidden';
+  element.style.willChange = 'transform, opacity';
+}
+
+/**
+ * Optimize image loading
+ */
+export function optimizeImage(img: HTMLImageElement): void {
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  img.style.contentVisibility = 'auto';
+  gpuAccelerate(img);
+}
+
+/**
  * Lazy load images with Intersection Observer
  */
 export function lazyLoadImage(img: HTMLImageElement): void {
@@ -40,16 +77,16 @@ export function lazyLoadImage(img: HTMLImageElement): void {
     const imageObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
+          const imgTarget = entry.target as HTMLImageElement;
+          if (imgTarget.dataset.src) {
+            imgTarget.src = imgTarget.dataset.src;
+            imgTarget.removeAttribute('data-src');
           }
-          observer.unobserve(img);
+          optimizeImage(imgTarget);
+          observer.unobserve(imgTarget);
         }
       });
     });
-
     imageObserver.observe(img);
   } else {
     // Fallback for browsers without IntersectionObserver
@@ -63,8 +100,8 @@ export function lazyLoadImage(img: HTMLImageElement): void {
  * Preload critical resources
  */
 export function preloadResource(href: string, as: string): void {
+  if (typeof document === 'undefined') return;
   if (document.querySelector(`link[href="${href}"]`)) return;
-  
   const link = document.createElement('link');
   link.rel = 'preload';
   link.href = href;
@@ -76,52 +113,20 @@ export function preloadResource(href: string, as: string): void {
 }
 
 /**
- * Measure performance metrics
+ * Measure Core Web Vitals
  */
 export function measurePerformance(): void {
-  if ('PerformanceObserver' in window && 'PerformanceEntry' in window) {
+  if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
     try {
-      // Measure Largest Contentful Paint (LCP)
-      const lcpObserver = new PerformanceObserver((list) => {
+      new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1] as any;
-        if (lastEntry) {
-          const lcp = lastEntry.renderTime || lastEntry.loadTime;
-          if (lcp > 2500) {
-            console.warn('LCP is slow:', lcp, 'ms');
-          }
+        if (lastEntry && (lastEntry.renderTime || lastEntry.loadTime) > 2500) {
+          console.warn('LCP is slow:', lastEntry.renderTime || lastEntry.loadTime, 'ms');
         }
-      });
-      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-
-      // Measure First Input Delay (FID)
-      const fidObserver = new PerformanceObserver((list) => {
-        const entries = list.getEntries();
-        entries.forEach((entry: any) => {
-          const fid = entry.processingStart - entry.startTime;
-          if (fid > 100) {
-            console.warn('FID is slow:', fid, 'ms');
-          }
-        });
-      });
-      fidObserver.observe({ entryTypes: ['first-input'] });
-
-      // Measure Cumulative Layout Shift (CLS)
-      let clsValue = 0;
-      const clsObserver = new PerformanceObserver((list) => {
-        const entries = list.getEntries() as any[];
-        entries.forEach((entry) => {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value;
-            if (clsValue > 0.1) {
-              console.warn('CLS is high:', clsValue);
-            }
-          }
-        });
-      });
-      clsObserver.observe({ entryTypes: ['layout-shift'] });
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
     } catch (e) {
-      // Silently fail if PerformanceObserver is not fully supported
+      // Ignore unsupported
     }
   }
 }
@@ -131,7 +136,6 @@ export function measurePerformance(): void {
  */
 export function optimizedScroll(callback: () => void): () => void {
   let ticking = false;
-  
   const onScroll = () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
@@ -143,7 +147,5 @@ export function optimizedScroll(callback: () => void): () => void {
   };
   
   window.addEventListener('scroll', onScroll, { passive: true });
-  
   return () => window.removeEventListener('scroll', onScroll);
 }
-

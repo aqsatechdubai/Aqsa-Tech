@@ -13,7 +13,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { optimizeImage } from '../utils/performance144';
+import { optimizeImage } from '../utils/performance';
 
 interface Category {
   id: string;

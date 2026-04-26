@@ -18,8 +18,8 @@ export const translations = {
     hero: {
       excellent: 'Excellent',
       trustpilot: '★ Trustpilot',
-      heading1: 'Expert Technical Services Across UAE',
-      heading2: 'Professional Home Maintenance, AC Service & Renovation in Dubai, Abu Dhabi, Sharjah',
+      heading1: 'Aqsa Tech - Expert Technical Services',
+      heading2: 'Professional Home Maintenance, AC Service & Renovation in Dubai & UAE',
       subheading: 'Your Trusted Partner for Property Maintenance & Technical Solutions | Fast, Reliable & Affordable | 10,000+ Satisfied Customers | Same-Day Service Available',
       getFreeQuote: 'Get FREE Quote in 30 Seconds',
       callNow: 'Call +971 52 501 0132',

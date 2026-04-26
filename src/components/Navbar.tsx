@@ -4,6 +4,8 @@ import { useState, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { Zap, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MobileMenuLink } from './navbar/MobileMenuLink';
+import { DesktopNavLink } from './navbar/DesktopNavLink';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // Nested Menu Items for Services
@@ -189,79 +191,22 @@ const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-2 xl:gap-3 flex-1 justify-center">
-              {/* Home Link */}
-              <motion.button
+              <DesktopNavLink
+                id="home"
+                label={navHome}
+                isActive={isHomeActive}
+                hoveredLink={hoveredLink}
+                setHoveredLink={setHoveredLink}
                 onClick={() => handleNavClick('/')}
-                onHoverStart={() => setHoveredLink('home')}
-                onHoverEnd={() => setHoveredLink(null)}
-                whileHover={{ scale: 1.05, y: -1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative px-3 xl:px-4 py-1.5 xl:py-2 text-xs xl:text-sm font-medium transition-all duration-300 rounded-full ${
-                  hoveredLink === 'home' || isHomeActive
-                    ? 'text-brand-blue'
-                    : 'text-gray-700 hover:text-brand-blue'
-                }`}
-              >
-                {(hoveredLink === 'home' || isHomeActive) && (
-                  <motion.div
-                    className="absolute -inset-[1px] rounded-full backdrop-blur-[20px] backdrop-saturate-[180%] border shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_4px_16px_rgba(0,0,0,0.1)]"
-                    style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                    }}
-                    layoutId="navHover"
-                    transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                  />
-                )}
-                  <motion.span
-                    className="relative z-10"
-                    animate={{ 
-                      scale: hoveredLink === 'home' || isHomeActive ? 1.28 : 1,
-                      fontWeight: hoveredLink === 'home' || isHomeActive ? 600 : 500,
-                      letterSpacing: hoveredLink === 'home' || isHomeActive ? '0.02em' : '0em'
-                    }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                  >
-                    {navHome}
-                  </motion.span>
-              </motion.button>
-
-              {/* About Us Link */}
-              <motion.button
+              />
+              <DesktopNavLink
+                id="about"
+                label={navAbout}
+                isActive={isAboutActive}
+                hoveredLink={hoveredLink}
+                setHoveredLink={setHoveredLink}
                 onClick={() => handleNavClick('/#about')}
-                onHoverStart={() => setHoveredLink('about')}
-                onHoverEnd={() => setHoveredLink(null)}
-                whileHover={{ scale: 1.05, y: -1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative px-3 xl:px-4 py-1.5 xl:py-2 text-xs xl:text-sm font-medium transition-all duration-300 rounded-full ${
-                  hoveredLink === 'about' || isAboutActive
-                    ? 'text-brand-blue'
-                    : 'text-gray-700 hover:text-brand-blue'
-                }`}
-              >
-                {(hoveredLink === 'about' || isAboutActive) && (
-                  <motion.div
-                    className="absolute -inset-[1px] rounded-full backdrop-blur-[20px] backdrop-saturate-[180%] border shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_4px_16px_rgba(0,0,0,0.1)]"
-                    style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                    }}
-                    layoutId="navHover"
-                    transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                  />
-                )}
-                <motion.span
-                  className="relative z-10"
-                  animate={{ 
-                    scale: hoveredLink === 'about' || isAboutActive ? 1.28 : 1,
-                    fontWeight: hoveredLink === 'about' || isAboutActive ? 600 : 500,
-                    letterSpacing: hoveredLink === 'about' || isAboutActive ? '0.02em' : '0em'
-                  }}
-                  transition={{ type: 'spring', stiffness: 360, damping: 20, mass: 0.75 }}
-                >
-                  {navAbout}
-                </motion.span>
-              </motion.button>
+              />
 
               {/* Services Dropdown with Nested Menu */}
               <motion.div
@@ -456,79 +401,22 @@ const Navbar: React.FC = () => {
                 </AnimatePresence>
               </motion.div>
 
-              {/* Blog Link */}
-              <motion.button
+              <DesktopNavLink
+                id="blog"
+                label={navBlog}
+                isActive={isBlogActive || false}
+                hoveredLink={hoveredLink}
+                setHoveredLink={setHoveredLink}
                 onClick={() => handleNavClick('/blog')}
-                onHoverStart={() => setHoveredLink('blog')}
-                onHoverEnd={() => setHoveredLink(null)}
-                whileHover={{ scale: 1.05, y: -1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative px-3 xl:px-4 py-1.5 xl:py-2 text-xs xl:text-sm font-medium transition-all duration-300 rounded-full ${
-                  hoveredLink === 'blog' || isBlogActive
-                    ? 'text-brand-blue'
-                    : 'text-gray-700 hover:text-brand-blue'
-                }`}
-              >
-                {(hoveredLink === 'blog' || isBlogActive) && (
-                  <motion.div
-                    className="absolute inset-0 rounded-full backdrop-blur-[20px] backdrop-saturate-[180%] border shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_4px_16px_rgba(0,0,0,0.1)]"
-                    style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                    }}
-                    layoutId="navHover"
-                    transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                  />
-                )}
-                <motion.span
-                  className="relative z-10"
-                  animate={{ 
-                    scale: hoveredLink === 'blog' || isBlogActive ? 1.28 : 1,
-                    fontWeight: hoveredLink === 'blog' || isBlogActive ? 600 : 500,
-                    letterSpacing: hoveredLink === 'blog' || isBlogActive ? '0.02em' : '0em'
-                  }}
-                  transition={{ type: 'spring', stiffness: 360, damping: 20, mass: 0.75 }}
-                >
-                  {navBlog}
-                </motion.span>
-              </motion.button>
-
-              {/* Contact Link */}
-              <motion.button
+              />
+              <DesktopNavLink
+                id="contact"
+                label={navContact}
+                isActive={isContactActive}
+                hoveredLink={hoveredLink}
+                setHoveredLink={setHoveredLink}
                 onClick={() => handleNavClick('/#contact')}
-                onHoverStart={() => setHoveredLink('contact')}
-                onHoverEnd={() => setHoveredLink(null)}
-                whileHover={{ scale: 1.05, y: -1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative px-3 xl:px-4 py-1.5 xl:py-2 text-xs xl:text-sm font-medium transition-all duration-300 rounded-full ${
-                  hoveredLink === 'contact' || isContactActive
-                    ? 'text-brand-blue'
-                    : 'text-gray-700 hover:text-brand-blue'
-                }`}
-              >
-                {(hoveredLink === 'contact' || isContactActive) && (
-                  <motion.div
-                    className="absolute inset-0 rounded-full backdrop-blur-[20px] backdrop-saturate-[180%] border shadow-[inset_0_1px_2px_rgba(255,255,255,0.9),0_4px_16px_rgba(0,0,0,0.1)]"
-                    style={{
-                      background: 'rgba(255,255,255,0.75)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                    }}
-                    layoutId="navHover"
-                    transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                  />
-                )}
-                <motion.span
-                  className="relative z-10"
-                  animate={{ 
-                    scale: hoveredLink === 'contact' || isContactActive ? 1.28 : 1,
-                    fontWeight: hoveredLink === 'contact' || isContactActive ? 600 : 500,
-                    letterSpacing: hoveredLink === 'contact' || isContactActive ? '0.02em' : '0em'
-                  }}
-                  transition={{ type: 'spring', stiffness: 360, damping: 20, mass: 0.75 }}
-                >
-                  {navContact}
-                </motion.span>
-              </motion.button>
+              />
             </div>
 
             {/* Mobile Right Section - CTA Button & Menu */}
@@ -817,186 +705,26 @@ const Navbar: React.FC = () => {
                     Navigation
                   </h3>
                   <div className="space-y-1.5 sm:space-y-2">
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('home')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 rounded-full ${
-                        (hoveredMenuLink === 'home' || isHomeActive)
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                      style={{ 
-                        color: (hoveredMenuLink === 'home' || isHomeActive) ? undefined : '#111827'
-                      }}
-                    >
-                      {(hoveredMenuLink === 'home' || isHomeActive) && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border border-gray-200/50 shadow-sm"
-                          layoutId="menuHover"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10 block"
-                        animate={{ 
-                          scale: (hoveredMenuLink === 'home' || isHomeActive) ? 1.05 : 1,
-                          fontWeight: (hoveredMenuLink === 'home' || isHomeActive) ? 600 : 500
+                    {[
+                      { id: 'home', label: navHome, path: '/', isActive: isHomeActive },
+                      { id: 'about', label: navAbout, path: '/#about', isActive: isAboutActive },
+                      { id: 'services', label: navServices, path: '/services', isActive: isServicesActive },
+                      { id: 'blog', label: navBlog, path: '/blog', isActive: isBlogActive },
+                      { id: 'contact', label: navContact, path: '/#contact', isActive: isContactActive }
+                    ].map((item) => (
+                      <MobileMenuLink
+                        key={item.id}
+                        id={item.id}
+                        label={item.label}
+                        isActive={item.isActive}
+                        hoveredMenuLink={hoveredMenuLink}
+                        setHoveredMenuLink={setHoveredMenuLink}
+                        onClick={() => {
+                          handleNavClick(item.path);
+                          setIsSideMenuOpen(false);
                         }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                      >
-                        {navHome}
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/#about');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('about')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 rounded-full ${
-                        (hoveredMenuLink === 'about' || isAboutActive)
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                      style={{ 
-                        color: (hoveredMenuLink === 'about' || isAboutActive) ? undefined : '#111827'
-                      }}
-                    >
-                      {(hoveredMenuLink === 'about' || isAboutActive) && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border border-gray-200/50 shadow-sm"
-                          layoutId="menuHover"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10 block"
-                        animate={{ 
-                          scale: (hoveredMenuLink === 'about' || isAboutActive) ? 1.05 : 1,
-                          fontWeight: (hoveredMenuLink === 'about' || isAboutActive) ? 600 : 500
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                      >
-                        {navAbout}
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/services');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('services')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 rounded-full ${
-                        (hoveredMenuLink === 'services' || isServicesActive)
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                      style={{ 
-                        color: (hoveredMenuLink === 'services' || isServicesActive) ? undefined : '#111827'
-                      }}
-                    >
-                      {(hoveredMenuLink === 'services' || isServicesActive) && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border border-gray-200/50 shadow-sm"
-                          layoutId="menuHover"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10 block"
-                        animate={{ 
-                          scale: (hoveredMenuLink === 'services' || isServicesActive) ? 1.05 : 1,
-                          fontWeight: (hoveredMenuLink === 'services' || isServicesActive) ? 600 : 500
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                      >
-                        {navServices}
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/blog');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('blog')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 rounded-full ${
-                        (hoveredMenuLink === 'blog' || isBlogActive)
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                      style={{ 
-                        color: (hoveredMenuLink === 'blog' || isBlogActive) ? undefined : '#111827'
-                      }}
-                    >
-                      {(hoveredMenuLink === 'blog' || isBlogActive) && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border border-gray-200/50 shadow-sm"
-                          layoutId="menuHover"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10 block"
-                        animate={{ 
-                          scale: (hoveredMenuLink === 'blog' || isBlogActive) ? 1.05 : 1,
-                          fontWeight: (hoveredMenuLink === 'blog' || isBlogActive) ? 600 : 500
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                      >
-                        {navBlog}
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/#contact');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('contact')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-medium transition-all duration-300 rounded-full ${
-                        (hoveredMenuLink === 'contact' || isContactActive)
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                      style={{ 
-                        color: (hoveredMenuLink === 'contact' || isContactActive) ? undefined : '#111827'
-                      }}
-                    >
-                      {(hoveredMenuLink === 'contact' || isContactActive) && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-[180%] border border-gray-200/50 shadow-sm"
-                          layoutId="menuHover"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10 block"
-                        animate={{ 
-                          scale: (hoveredMenuLink === 'contact' || isContactActive) ? 1.05 : 1,
-                          fontWeight: (hoveredMenuLink === 'contact' || isContactActive) ? 600 : 500
-                        }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
-                      >
-                        {navContact}
-                      </motion.span>
-                    </motion.button>
+                      />
+                    ))}
                   </div>
                 </div>
 
@@ -1039,142 +767,26 @@ const Navbar: React.FC = () => {
                     Company
                   </h3>
                   <div className="space-y-2">
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/#about');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('company-about')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-4 py-2.5 text-xs lg:text-sm font-medium transition-all duration-300 rounded-full ${
-                        hoveredMenuLink === 'company-about'
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                    >
-                      {hoveredMenuLink === 'company-about' && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/60"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.7) 100%)',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(255,255,255,0.5)',
-                          }}
-                          layoutId="menuHoverCompany"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ scale: hoveredMenuLink === 'company-about' ? 1.05 : 1 }}
-                        transition={{ type: 'spring', stiffness: 320, damping: 18, mass: 0.8 }}
-                      >
-                        {navAbout}
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/#contact');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('company-career')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-4 py-2.5 text-xs lg:text-sm font-medium transition-all duration-300 rounded-full ${
-                        hoveredMenuLink === 'company-career'
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                    >
-                      {hoveredMenuLink === 'company-career' && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/60"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.7) 100%)',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(255,255,255,0.5)',
-                          }}
-                          layoutId="menuHoverCompany"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ scale: hoveredMenuLink === 'company-career' ? 1.05 : 1 }}
-                        transition={{ type: 'spring', stiffness: 320, damping: 18, mass: 0.8 }}
-                      >
-                        Career
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/blog');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('company-news')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-4 py-2.5 text-xs lg:text-sm font-medium transition-all duration-300 rounded-full ${
-                        hoveredMenuLink === 'company-news'
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                    >
-                      {hoveredMenuLink === 'company-news' && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/60"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.7) 100%)',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(255,255,255,0.5)',
-                          }}
-                          layoutId="menuHoverCompany"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ scale: hoveredMenuLink === 'company-news' ? 1.05 : 1 }}
-                        transition={{ type: 'spring', stiffness: 320, damping: 18, mass: 0.8 }}
-                      >
-                        News
-                      </motion.span>
-                    </motion.button>
-                    <motion.button
-                      onClick={() => {
-                        handleNavClick('/#about');
-                        setIsSideMenuOpen(false);
-                      }}
-                      onHoverStart={() => setHoveredMenuLink('company-sustainability')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-4 py-2.5 text-xs lg:text-sm font-medium transition-all duration-300 rounded-full ${
-                        hoveredMenuLink === 'company-sustainability'
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                    >
-                      {hoveredMenuLink === 'company-sustainability' && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/60"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.7) 100%)',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(255,255,255,0.5)',
-                          }}
-                          layoutId="menuHoverCompany"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ scale: hoveredMenuLink === 'company-sustainability' ? 1.05 : 1 }}
-                        transition={{ type: 'spring', stiffness: 320, damping: 18, mass: 0.8 }}
-                      >
-                        Sustainability
-                      </motion.span>
-                    </motion.button>
+                    {[
+                      { id: 'company-about', label: navAbout, path: '/#about' },
+                      { id: 'company-career', label: 'Career', path: '/#contact' },
+                      { id: 'company-news', label: 'News', path: '/blog' },
+                      { id: 'company-sustainability', label: 'Sustainability', path: '/#about' }
+                    ].map((item) => (
+                      <MobileMenuLink
+                        key={item.id}
+                        id={item.id}
+                        label={item.label}
+                        isActive={false} // Adjust if needed based on path mapping
+                        hoveredMenuLink={hoveredMenuLink}
+                        setHoveredMenuLink={setHoveredMenuLink}
+                        layoutId="menuHoverCompany"
+                        onClick={() => {
+                          handleNavClick(item.path);
+                          setIsSideMenuOpen(false);
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
 
@@ -1184,40 +796,18 @@ const Navbar: React.FC = () => {
                     About Aqsatech
                   </h3>
                   <div className="space-y-2">
-                    <motion.button
+                    <MobileMenuLink
+                      id="about-office"
+                      label="Office"
+                      isActive={false}
+                      hoveredMenuLink={hoveredMenuLink}
+                      setHoveredMenuLink={setHoveredMenuLink}
+                      layoutId="menuHoverAbout"
                       onClick={() => {
                         handleNavClick('/#contact');
                         setIsSideMenuOpen(false);
                       }}
-                      onHoverStart={() => setHoveredMenuLink('about-office')}
-                      onHoverEnd={() => setHoveredMenuLink(null)}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`relative block w-full px-4 py-2.5 text-xs lg:text-sm font-medium transition-all duration-300 rounded-full ${
-                        hoveredMenuLink === 'about-office'
-                          ? 'text-brand-blue'
-                          : 'text-gray-900 hover:text-brand-blue'
-                      } text-left`}
-                    >
-                      {hoveredMenuLink === 'about-office' && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full bg-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/60"
-                          style={{
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.7) 100%)',
-                            boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(255,255,255,0.5)',
-                          }}
-                          layoutId="menuHoverAbout"
-                          transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.6 }}
-                        />
-                      )}
-                      <motion.span
-                        className="relative z-10"
-                        animate={{ scale: hoveredMenuLink === 'about-office' ? 1.05 : 1 }}
-                        transition={{ type: 'spring', stiffness: 320, damping: 18, mass: 0.8 }}
-                      >
-                        Office
-                      </motion.span>
-                    </motion.button>
+                    />
                   </div>
                 </div>
 

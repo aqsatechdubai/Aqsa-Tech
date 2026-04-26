@@ -3,7 +3,7 @@ import ProButton from './ui/ProButton';
 import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { optimizeImage } from '../utils/performance144';
+import { optimizeImage } from '../utils/performance';
 
 const About: React.FC = () => {
   const { t, isRTL } = useLanguage();

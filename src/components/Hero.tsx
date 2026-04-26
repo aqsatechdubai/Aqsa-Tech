@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
 import ProButton from './ui/ProButton';
 import { useLanguage } from '../contexts/LanguageContext';
 import TextType from './TextType';
@@ -92,10 +93,12 @@ const HeroSection: React.FC = () => {
                 }}
               />
             ) : (
-              <img 
+              <Image 
                 src="/Logo Chatgpt.png" 
                 alt="Aqsa Tech Dubai" 
-                className="w-full h-full object-cover"
+                fill
+                priority
+                className="object-cover"
                 style={{
                   transform: 'translateZ(0)',
                   backfaceVisibility: 'hidden'

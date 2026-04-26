@@ -7,6 +7,7 @@ export default defineType({
   type: 'document',
   icon: HomeIcon,
   // Prevent creating more than one — this is a singleton
+  // @ts-expect-error - __experimental_actions is used for legacy Sanity singleton behavior
   __experimental_actions: ['update', 'publish'],
   groups: [
     { name: 'hero',     title: '① Hero Section' },

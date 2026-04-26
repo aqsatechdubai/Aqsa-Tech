@@ -4,7 +4,7 @@ import { useState, useEffect, memo } from 'react';
 import Link from 'next/link';
 import { Zap, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MobileMenuLink } from './navbar/MobileMenuLink';
+
 import { DesktopNavLink } from './navbar/DesktopNavLink';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -24,12 +24,12 @@ const Navbar: React.FC = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isNestedOpen, setIsNestedOpen] = useState(false);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-  const [hoveredMenuLink, setHoveredMenuLink] = useState<string | null>(null);
+
   
   const pathname = usePathname();
   const ___router = useRouter();
   const navigate = (path: string | number) => { if (typeof path === "number" && path === -1) { ___router.back(); } else if (typeof path === "string") { ___router.push(path); } };
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
 
   const [activeSection, setActiveSection] = useState<'home' | 'about' | 'services' | 'contact' | null>('home');
 
@@ -447,23 +447,10 @@ const Navbar: React.FC = () => {
               >
                 {/* Animated background */}
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50 border border-gray-200/80 shadow-lg rounded-xl sm:rounded-2xl"
+                  className="absolute inset-0 bg-white border border-gray-200/80 shadow-sm rounded-xl sm:rounded-2xl"
                   animate={{
-                    backgroundColor: isSideMenuOpen 
-                      ? 'rgba(17, 24, 39, 1)' 
-                      : 'rgba(255, 255, 255, 1)',
-                    borderColor: isSideMenuOpen 
-                      ? 'rgba(17, 24, 39, 0.5)' 
-                      : 'rgba(229, 231, 235, 0.8)',
+                    backgroundColor: isSideMenuOpen ? '#F9FAFB' : '#ffffff'
                   }}
-                  transition={{ 
-                    duration: 0.2,
-                    ease: [0.25, 0.1, 0.25, 1]
-                  }}
-                />
-                <motion.div 
-                  className="absolute inset-0 backdrop-blur-[20px] rounded-xl sm:rounded-2xl"
-                  animate={{ opacity: isSideMenuOpen ? 0.8 : 1 }}
                   transition={{ duration: 0.2 }}
                 />
                 
@@ -471,55 +458,33 @@ const Navbar: React.FC = () => {
                 <div className="relative z-20 w-4 h-4 sm:w-5 sm:h-5 flex flex-col justify-center items-center">
                   <motion.span
                     className="absolute w-4 sm:w-5 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                      boxShadow: isSideMenuOpen ? 'none' : '0 0 2px rgba(0,0,0,0.1)'
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       rotate: isSideMenuOpen ? 45 : 0,
                       y: isSideMenuOpen ? 0 : -5,
                       width: isSideMenuOpen ? '1.25rem' : '1rem',
                     }}
-                    transition={{ 
-                      type: 'spring', 
-                      stiffness: 500, 
-                      damping: 30,
-                      mass: 0.5
-                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
                   />
                   <motion.span
                     className="absolute w-4 sm:w-5 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                      boxShadow: isSideMenuOpen ? 'none' : '0 0 2px rgba(0,0,0,0.1)'
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       opacity: isSideMenuOpen ? 0 : 1,
                       scale: isSideMenuOpen ? 0 : 1,
                       x: isSideMenuOpen ? 10 : 0,
                     }}
-                    transition={{ 
-                      duration: 0.15,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
+                    transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                   />
                   <motion.span
                     className="absolute w-4 sm:w-5 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                      boxShadow: isSideMenuOpen ? 'none' : '0 0 2px rgba(0,0,0,0.1)'
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       rotate: isSideMenuOpen ? -45 : 0,
                       y: isSideMenuOpen ? 0 : 5,
                       width: isSideMenuOpen ? '1.25rem' : '1rem',
                     }}
-                    transition={{ 
-                      type: 'spring', 
-                      stiffness: 500, 
-                      damping: 30,
-                      mass: 0.5
-                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
                   />
                 </div>
               </motion.button>
@@ -555,23 +520,10 @@ const Navbar: React.FC = () => {
               >
                 {/* Animated background */}
                 <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50 border border-gray-200/80 shadow-lg rounded-2xl"
+                  className="absolute inset-0 bg-white border border-gray-200/80 shadow-sm rounded-2xl"
                   animate={{
-                    backgroundColor: isSideMenuOpen 
-                      ? 'rgba(17, 24, 39, 0.95)' 
-                      : 'rgba(255, 255, 255, 0.95)',
-                    borderColor: isSideMenuOpen 
-                      ? 'rgba(17, 24, 39, 0.3)' 
-                      : 'rgba(229, 231, 235, 0.8)',
+                    backgroundColor: isSideMenuOpen ? '#F9FAFB' : '#ffffff'
                   }}
-                  transition={{ 
-                    duration: 0.2,
-                    ease: [0.25, 0.1, 0.25, 1]
-                  }}
-                />
-                <motion.div 
-                  className="absolute inset-0 backdrop-blur-[20px] rounded-2xl"
-                  animate={{ opacity: isSideMenuOpen ? 0.8 : 1 }}
                   transition={{ duration: 0.2 }}
                 />
                 
@@ -579,52 +531,33 @@ const Navbar: React.FC = () => {
                 <div className="relative z-20 w-5 h-5 xl:w-6 xl:h-6 flex flex-col justify-center items-center">
                   <motion.span
                     className="absolute w-5 xl:w-6 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       rotate: isSideMenuOpen ? 45 : 0,
                       y: isSideMenuOpen ? 0 : -6,
                       width: isSideMenuOpen ? '1.5rem' : '1.25rem',
                     }}
-                    transition={{ 
-                      type: 'spring', 
-                      stiffness: 500, 
-                      damping: 30,
-                      mass: 0.5
-                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
                   />
                   <motion.span
                     className="absolute w-5 xl:w-6 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       opacity: isSideMenuOpen ? 0 : 1,
                       scale: isSideMenuOpen ? 0 : 1,
                       x: isSideMenuOpen ? 12 : 0,
                     }}
-                    transition={{ 
-                      duration: 0.15,
-                      ease: [0.4, 0, 0.2, 1]
-                    }}
+                    transition={{ duration: 0.15, ease: [0.4, 0, 0.2, 1] }}
                   />
                   <motion.span
                     className="absolute w-5 xl:w-6 h-0.5 rounded-full origin-center"
-                    style={{ 
-                      backgroundColor: isSideMenuOpen ? '#ffffff' : '#111827',
-                    }}
+                    style={{ backgroundColor: '#111827' }}
                     animate={{
                       rotate: isSideMenuOpen ? -45 : 0,
                       y: isSideMenuOpen ? 0 : 6,
                       width: isSideMenuOpen ? '1.5rem' : '1.25rem',
                     }}
-                    transition={{ 
-                      type: 'spring', 
-                      stiffness: 500, 
-                      damping: 30,
-                      mass: 0.5
-                    }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 30, mass: 0.5 }}
                   />
                 </div>
               </motion.button>
@@ -633,205 +566,104 @@ const Navbar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Right Side Menu */}
+      {/* Mobile Dropdown Menu (Floating Card) */}
       <AnimatePresence>
         {isSideMenuOpen && (
-          <div>
-            {/* Backdrop with gradient and blur */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsSideMenuOpen(false)}
-              className="fixed inset-0 z-[60] pointer-events-auto"
-              style={{
-                background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.75) 100%)',
-                backdropFilter: 'blur(8px)',
-                WebkitBackdropFilter: 'blur(8px)',
-              }}
-              transition={{ 
-                duration: 0.2,
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
-            />
-            
-            {/* Side Menu Panel - Enhanced Design */}
-            <motion.div
-              initial={{ x: isRTL ? '-100%' : '100%', opacity: 0, scale: 0.98 }}
-              animate={{ x: 0, opacity: 1, scale: 1 }}
-              exit={{ x: isRTL ? '-100%' : '100%', opacity: 0, scale: 0.98 }}
-              transition={{ 
-                type: 'spring', 
-                stiffness: 500, 
-                damping: 30, 
-                mass: 0.5
-              }}
-              className={`fixed ${isRTL ? 'left-0' : 'right-0'} top-0 h-full w-[90vw] sm:w-80 max-w-[320px] z-[70] overflow-y-auto ${isRTL ? 'rounded-r-2xl' : 'rounded-l-2xl'} pointer-events-auto`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className={`h-full bg-gradient-to-br from-white via-white to-gray-50/50 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-[0_26px_70px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.9)] ${isRTL ? 'border-r' : 'border-l'} border-gray-200/60 ${isRTL ? 'rounded-r-2xl' : 'rounded-l-2xl'} flex flex-col relative overflow-hidden`}>
-                {/* Enhanced gradient overlays */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/60 via-white/40 to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 to-transparent" />
-                
-                {/* Header - Menu Title Only */}
-                <div className="flex items-center justify-center px-3 sm:px-5 py-4 sm:py-5 border-b border-gray-200/60 relative z-10 bg-white/50 backdrop-blur-sm">
-                  <motion.h2 
-                    className="text-lg sm:text-xl font-bold text-gray-900"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                    style={{ 
-                      color: '#111827',
-                      textShadow: '0 1px 2px rgba(0,0,0,0.05)'
-                    }}
-                  >
-                    Menu
-                  </motion.h2>
-                </div>
-
-                {/* Menu Content */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1], delay: 0.05 }}
-                  className="p-3 sm:p-5 space-y-3 sm:space-y-5 flex-1 overflow-y-auto relative z-10"
-                >
-                {/* Main Navigation (same as navbar) */}
-                <div>
-                  <h3 className="text-xs sm:text-sm font-bold text-gray-900 uppercase tracking-wider mb-2 sm:mb-3" style={{ color: '#111827' }}>
-                    Navigation
-                  </h3>
-                  <div className="space-y-1.5 sm:space-y-2">
-                    {[
-                      { id: 'home', label: navHome, path: '/', isActive: isHomeActive },
-                      { id: 'about', label: navAbout, path: '/#about', isActive: isAboutActive },
-                      { id: 'services', label: navServices, path: '/services', isActive: isServicesActive },
-                      { id: 'blog', label: navBlog, path: '/blog', isActive: isBlogActive },
-                      { id: 'contact', label: navContact, path: '/#contact', isActive: isContactActive }
-                    ].map((item) => (
-                      <MobileMenuLink
-                        key={item.id}
-                        id={item.id}
-                        label={item.label}
-                        isActive={item.isActive}
-                        hoveredMenuLink={hoveredMenuLink}
-                        setHoveredMenuLink={setHoveredMenuLink}
-                        onClick={() => {
-                          handleNavClick(item.path);
-                          setIsSideMenuOpen(false);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                 {/* Inspiration Section (visual only, no navigation) */}
-                 <div>
-                   <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2" style={{ color: '#111827' }}>
-                     Inspiration
-                   </h3>
-                   <div className="space-y-1.5">
-                     <motion.div
-                       whileHover={{ scale: 1.02, x: -1 }}
-                       className="block w-full px-4 py-2.5 text-gray-900 bg-gray-50 rounded-full border border-gray-200 shadow-sm text-left font-medium"
-                     >
-                       References
-                     </motion.div>
-                     <motion.div
-                       whileHover={{ scale: 1.02, x: -1 }}
-                       className="block w-full px-4 py-2.5 text-gray-900 bg-gray-50 rounded-full border border-gray-200 shadow-sm text-left font-medium"
-                     >
-                       Aqsatech Magazine
-                     </motion.div>
-                     <motion.div
-                       whileHover={{ scale: 1.02, x: -1 }}
-                       className="block w-full px-4 py-2.5 text-gray-900 bg-gray-50 rounded-full border border-gray-200 shadow-sm text-left font-medium"
-                     >
-                       Discover
-                     </motion.div>
-                     <motion.div
-                       whileHover={{ scale: 1.02, x: -1 }}
-                       className="block w-full px-4 py-2.5 text-gray-900 bg-gray-50 rounded-full border border-gray-200 shadow-sm text-left font-medium"
-                     >
-                       Newsletter
-                     </motion.div>
-                   </div>
-                 </div>
-
-                {/* Company Section */}
-                <div>
-                  <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
-                    Company
-                  </h3>
-                  <div className="space-y-2">
-                    {[
-                      { id: 'company-about', label: navAbout, path: '/#about' },
-                      { id: 'company-career', label: 'Career', path: '/#contact' },
-                      { id: 'company-news', label: 'News', path: '/blog' },
-                      { id: 'company-sustainability', label: 'Sustainability', path: '/#about' }
-                    ].map((item) => (
-                      <MobileMenuLink
-                        key={item.id}
-                        id={item.id}
-                        label={item.label}
-                        isActive={false} // Adjust if needed based on path mapping
-                        hoveredMenuLink={hoveredMenuLink}
-                        setHoveredMenuLink={setHoveredMenuLink}
-                        layoutId="menuHoverCompany"
-                        onClick={() => {
-                          handleNavClick(item.path);
-                          setIsSideMenuOpen(false);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* About Aqsatech Section */}
-                <div>
-                  <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">
-                    About Aqsatech
-                  </h3>
-                  <div className="space-y-2">
-                    <MobileMenuLink
-                      id="about-office"
-                      label="Office"
-                      isActive={false}
-                      hoveredMenuLink={hoveredMenuLink}
-                      setHoveredMenuLink={setHoveredMenuLink}
-                      layoutId="menuHoverAbout"
-                      onClick={() => {
-                        handleNavClick('/#contact');
-                        setIsSideMenuOpen(false);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <div className="pt-4 border-t border-gray-200">
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -10, scale: 0.95, filter: 'blur(10px)' }}
+            transition={{ type: "spring", bounce: 0.35, duration: 0.6 }}
+            className="absolute top-full left-3 right-3 mt-2 lg:hidden shadow-[0_20px_60px_rgba(0,0,0,0.15)] rounded-[28px]"
+            style={{ zIndex: 100 }}
+          >
+            <div className="w-full bg-white/95 backdrop-blur-[40px] border border-gray-200/80 rounded-[28px] p-2 flex flex-col">
+              <div className="flex flex-col space-y-1 p-2">
+                {[
+                  { id: 'home', label: navHome, path: '/', isActive: isHomeActive },
+                  { id: 'about', label: navAbout, path: '/#about', isActive: isAboutActive },
+                  { id: 'services', label: navServices, path: '/services', isActive: isServicesActive },
+                  { id: 'blog', label: navBlog, path: '/blog', isActive: isBlogActive },
+                  { id: 'contact', label: navContact, path: '/#contact', isActive: isContactActive },
+                ].map((item, index) => (
                   <motion.button
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + (index * 0.05), type: "spring", stiffness: 300, damping: 24 }}
+                    key={item.id}
                     onClick={() => {
-                      handleNavClick('/#contact');
+                      handleNavClick(item.path);
                       setIsSideMenuOpen(false);
                     }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative w-full px-6 py-3 bg-white text-[#174A67] font-semibold rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all duration-300 overflow-hidden"
+                    className={`relative text-left py-3.5 px-4 font-bold text-[16px] rounded-xl transition-all w-full flex items-center justify-between group active:scale-[0.98] overflow-hidden ${
+                      item.isActive 
+                        ? 'bg-[#F0F9FF] text-[#0ea5e9]' 
+                        : 'text-gray-800 hover:bg-[#F0F9FF] hover:text-[#0ea5e9]'
+                    }`}
                   >
-                    {/* Gradient border */}
-                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#7DD3FC] via-[#45C0B0] to-[#3B82F6] opacity-100 -z-10" />
-                    <span className="absolute inset-[2px] rounded-full bg-white -z-[1]" />
-                    <span className="relative z-10">Book Your Free Consultancy</span>
+                    {/* Active Bar */}
+                    {item.isActive && (
+                      <motion.div 
+                        layoutId="activeMobileBar"
+                        className="absolute left-0 top-0 bottom-0 w-[5px] bg-[#0ea5e9] rounded-r-md"
+                      />
+                    )}
+                    <span className="relative z-10 pl-1">{item.label}</span>
+                    <span className={`relative z-10 transition-opacity text-sm text-[#0ea5e9] ${item.isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>→</span>
                   </motion.button>
+                ))}
+              </div>
+
+              {/* Let's Talk CTA */}
+              <motion.div 
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, type: "spring", stiffness: 300, damping: 24 }}
+                className="mt-1 text-center pb-2 px-2"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    handleNavClick('/#contact');
+                    setIsSideMenuOpen(false);
+                  }}
+                  className="w-full bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white py-4 rounded-[20px] text-[16px] font-bold flex items-center justify-center gap-3 shadow-[0_4px_14px_rgba(14,165,233,0.3)] transition-all"
+                >
+                  Get Free Quote
+                  <div className="w-6 h-6 bg-white text-[#0ea5e9] rounded-full flex items-center justify-center">
+                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </motion.button>
+              </motion.div>
+
+              {/* Bottom Tags Section */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.45, duration: 0.4 }}
+                className="mt-3 pb-3 px-3 text-center border-t border-gray-100 pt-4"
+              >
+                <h3 className="text-gray-900 text-[13px] font-bold mb-3">Popular Services</h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {['AC Repair', 'Plumbing', 'Painting', 'Renovation'].map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => {
+                        handleNavClick('/services');
+                        setIsSideMenuOpen(false);
+                      }}
+                      className="px-4 py-1.5 bg-gray-50 border border-gray-200 hover:border-[#0ea5e9] rounded-full text-gray-700 hover:text-[#0ea5e9] text-[12px] font-semibold transition-all shadow-sm"
+                    >
+                      {tag}
+                    </button>
+                  ))}
                 </div>
               </motion.div>
             </div>
-            </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
 

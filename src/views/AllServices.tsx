@@ -101,7 +101,7 @@ const AllServices: React.FC = () => {
                 
                 {/* Tags over image */}
                 <div className="absolute bottom-2 left-3 right-3 flex flex-wrap gap-1 sm:gap-1.5 justify-center">
-                  {service.tags.map((tag, tagIndex) => (
+                  {service.tags?.map((tag: string, tagIndex: number) => (
                     <span
                       key={tagIndex}
                       className="bg-white/95 backdrop-blur-sm text-gray-800 px-2 sm:px-2.5 py-0.5 rounded-full text-[11px] sm:text-[11px] font-medium shadow-md"

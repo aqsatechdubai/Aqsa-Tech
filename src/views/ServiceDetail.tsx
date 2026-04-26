@@ -219,7 +219,7 @@ export default function ServiceDetail() {
                 transition={{ duration: 0.2, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                 className={`flex flex-wrap gap-2 sm:gap-2.5 lg:gap-3 ${isRTL ? 'justify-end' : 'justify-start'}`}
               >
-                {service.tags.map((tag) => (
+                {service.tags?.map((tag: string) => (
                   <span
                     key={tag}
                     className="px-3 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 lg:py-2.5 rounded-full text-xs sm:text-sm lg:text-base font-semibold bg-gray-900 text-white border-2 border-gray-900 shadow-lg whitespace-nowrap"
@@ -252,7 +252,7 @@ export default function ServiceDetail() {
             <div className="rounded-xl border border-gray-200 p-4 sm:p-5 bg-white shadow-sm">
               <h3 className={`text-sm sm:text-base font-bold mb-3 sm:mb-4 text-gray-900 text-center sm:text-left ${isRTL ? 'sm:text-right' : ''}`}>{t('services.keyFeatures')}</h3>
               <ul className={`space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-700 ${isRTL ? 'text-right' : 'text-left'}`}>
-                {service.features.map((f) => (
+                {service.features?.map((f: string) => (
                   <li key={f} className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <span className="mt-1.5 inline-block w-2 h-2 rounded-full bg-blue-600 flex-shrink-0" />
                     <span className="text-gray-900">{f}</span>
@@ -263,7 +263,7 @@ export default function ServiceDetail() {
             <div className="rounded-xl border border-gray-200 p-4 sm:p-5 bg-white shadow-sm">
               <h3 className={`text-sm sm:text-base font-bold mb-3 sm:mb-4 text-gray-900 text-center sm:text-left ${isRTL ? 'sm:text-right' : ''}`}>{t('services.benefits')}</h3>
               <ul className={`space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-700 ${isRTL ? 'text-right' : 'text-left'}`}>
-                {serviceBenefits && serviceBenefits.map((b, index) => (
+                {serviceBenefits && serviceBenefits.map((b: string, index: number) => (
                   <li key={index} className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <span className="mt-1.5 inline-block w-2 h-2 rounded-full bg-green-600 flex-shrink-0" />
                     <span className="text-gray-900">{b}</span>
@@ -276,7 +276,7 @@ export default function ServiceDetail() {
             <div className="mb-8 sm:mb-10">
               <h3 className={`text-sm sm:text-base font-bold mb-3 text-gray-900 text-center sm:text-left ${isRTL ? 'sm:text-right' : ''}`}>{t('services.gallery')}</h3>
               <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
-                {service.gallery.map((g) => (
+                {service.gallery?.map((g: string) => (
                   <div key={g} className="relative w-full aspect-video overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
                   <img
                     src={g}

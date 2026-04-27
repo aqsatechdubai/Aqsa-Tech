@@ -65,6 +65,38 @@ export default function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <link rel="icon" type="image/png" href="/Logo%20Chatgpt.png" />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "LocalBusiness",
+                            "name": "Aqsa Tech",
+                            "alternateName": "Aqsatech",
+                            "image": "https://aqsatech.ae/Logo%20Chatgpt.png",
+                            "description": "Aqsa Tech is UAE's #1 Most Trusted Technical Services Company in Dubai. Expert AC repair, plumbing, painting, & home maintenance services.",
+                            "url": "https://aqsatech.ae",
+                            "telephone": "+971525010132",
+                            "email": "services@aqsatech.ae",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "streetAddress": "Dubai",
+                                "addressLocality": "Dubai",
+                                "addressRegion": "Dubai",
+                                "addressCountry": "AE"
+                            },
+                            "areaServed": {
+                                "@type": "City",
+                                "name": "Dubai"
+                            },
+                            "sameAs": [
+                                "https://www.instagram.com/aqsatech.ae/",
+                                "https://twitter.com/aqsatech_ae",
+                                "https://www.linkedin.com/company/aqsatech-ae/"
+                            ]
+                        })
+                    }}
+                />
             </head>
             <body suppressHydrationWarning>
                 <SmoothScroll>

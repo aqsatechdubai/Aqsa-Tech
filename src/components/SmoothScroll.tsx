@@ -7,7 +7,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     useEffect(() => {
         const lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
@@ -16,14 +16,20 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
             infinite: false,
         });
 
+        let rafId: number;
+        let active = true;
+
         function raf(time: number) {
+            if (!active) return;
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
+            active = false;
+            cancelAnimationFrame(rafId);
             lenis.destroy();
         };
     }, []);

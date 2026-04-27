@@ -109,28 +109,38 @@ const Navbar: React.FC = () => {
     };
   }, [isSideMenuOpen]);
 
+  const scrollToHash = (hash: string) => {
+    let attempts = 0;
+    const maxAttempts = 20;
+    const interval = setInterval(() => {
+      const element = document.getElementById(hash);
+      if (element) {
+        clearInterval(interval);
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+      attempts++;
+      if (attempts >= maxAttempts) clearInterval(interval);
+    }, 80);
+  };
+
   const handleNavClick = (path: string) => {
     if (path.includes('#')) {
       const [route, hash] = path.split('#');
-      if (pathname !==route) {
-        navigate(route);
-        setTimeout(() => {
-          const element = document.getElementById(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
+      if (pathname !== route && route !== '') {
+        navigate(route || '/');
+        // Poll for the element after navigation instead of a fixed timeout
+        scrollToHash(hash);
       } else {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToHash(hash);
       }
 
       if (hash === 'about') setActiveSection('about');
       if (hash === 'contact') setActiveSection('contact');
     } else {
-      if (path === '/' && pathname ==='/') {
+      if (path === '/' && pathname === '/') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setActiveSection('home');
       } else {
